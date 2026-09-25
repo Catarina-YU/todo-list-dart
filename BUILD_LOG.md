@@ -1250,6 +1250,72 @@ Completed
 
 Completed
 
+---
+
+## Entry 011 — Resolução de Conflito de Dependência (`timezone`)
+
+### Data / Hora
+2026-09-25
+
+---
+
+## Prompt / Request
+
+> "No projeto Flutter C:\Users\catar\todo-list-dart, ao executar flutter run -d emulator-5554 ocorreu este erro de resolução de dependências:
+> flutter_local_notifications ^22.3.1 exige timezone ^0.11.0, mas o projeto atualmente depende de timezone ^0.10.0.
+> Faça somente a correção necessária para resolver esse conflito de versões."
+
+---
+
+## Decision Summary
+
+1. **Atualização da Versão do `timezone`:**
+   - Atualizada a dependência `timezone` de `^0.10.0` para `^0.11.1` em [pubspec.yaml](file:///C:/Users/catar/todo-list-dart/pubspec.yaml), garantindo compatibilidade exata com `flutter_local_notifications ^22.3.1`.
+2. **Preservação Integral da Aplicação:**
+   - Nenhuma alteração foi realizada na arquitetura, banco SQLite, repositórios, providers, regras de negócio ou telas.
+3. **Validação Estática e Testes:**
+   - Análise estática (`analyze_file`) executada com **0 erros e 0 avisos**.
+   - Suíte de **81 testes automatizados** re-executada com **100% de aprovação**.
+
+---
+
+## Actions Performed
+
+1. **Atualização do `pubspec.yaml`:**
+   - Atualizada a linha do pacote `timezone` para `timezone: ^0.11.1` em [pubspec.yaml](file:///C:/Users/catar/todo-list-dart/pubspec.yaml).
+
+2. **Análise Estática e Re-execução dos Testes:**
+   - Verificação de código executada sem avisos de linter.
+   - Suíte de 81 testes automatizados confirmada como 100% aprovada.
+
+---
+
+## Result
+
+- Conflito de dependências resolvido.
+- Versão final do `timezone`: `^0.11.1`.
+- `flutter analyze` / `analyze_file`: **0 erros / 0 avisos**.
+- `flutter test`: **81 testes aprovados (100% sucesso)**.
+
+---
+
+## Problems / Errors
+
+- Conflito de versão entre `flutter_local_notifications ^22.3.1` e `timezone ^0.10.0`.
+
+---
+
+## Fixes Attempted
+
+- Atualização de `timezone` em `pubspec.yaml` para `^0.11.1`.
+
+---
+
+## Current Status
+
+Completed
+
+
 
 
 
