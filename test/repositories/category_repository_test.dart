@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_todo/database/app_database.dart';
-import 'package:mobile_todo/models/category.dart';
+import 'package:mobile_todo/models/category.dart' as model;
 import 'package:mobile_todo/models/task.dart';
 import 'package:mobile_todo/repositories/category_repository.dart';
 import 'package:mobile_todo/repositories/task_repository.dart';
@@ -29,7 +29,7 @@ void main() {
     });
 
     test('1. should create category and assign generated id', () async {
-      const category = Category(name: 'Estudos');
+      const category = model.Category(name: 'Estudos');
       final created = await categoryRepo.createCategory(category);
 
       expect(created.id, isNotNull);
@@ -38,7 +38,7 @@ void main() {
     });
 
     test('1b. should throw ArgumentError when category name is empty', () async {
-      const category = Category(name: '   ');
+      const category = model.Category(name: '   ');
 
       expect(
         () async => await categoryRepo.createCategory(category),
@@ -47,7 +47,7 @@ void main() {
     });
 
     test('2. should retrieve category by id', () async {
-      final created = await categoryRepo.createCategory(const Category(name: 'Trabalho'));
+      final created = await categoryRepo.createCategory(const model.Category(name: 'Trabalho'));
       final found = await categoryRepo.getCategoryById(created.id!);
 
       expect(found, isNotNull);
@@ -61,9 +61,9 @@ void main() {
     });
 
     test('3. should retrieve all categories ordered by name', () async {
-      await categoryRepo.createCategory(const Category(name: 'Trabalho'));
-      await categoryRepo.createCategory(const Category(name: 'Academia'));
-      await categoryRepo.createCategory(const Category(name: 'Casa'));
+      await categoryRepo.createCategory(const model.Category(name: 'Trabalho'));
+      await categoryRepo.createCategory(const model.Category(name: 'Academia'));
+      await categoryRepo.createCategory(const model.Category(name: 'Casa'));
 
       final list = await categoryRepo.getAllCategories();
       expect(list.length, 3);
@@ -71,7 +71,7 @@ void main() {
     });
 
     test('4. should rename / update category', () async {
-      final created = await categoryRepo.createCategory(const Category(name: 'Pessoal'));
+      final created = await categoryRepo.createCategory(const model.Category(name: 'Pessoal'));
       final updated = created.copyWith(name: 'Projetos Pessoais');
 
       final success = await categoryRepo.updateCategory(updated);
@@ -82,14 +82,14 @@ void main() {
     });
 
     test('4b. should return false when updating non-existent category id', () async {
-      const nonExistent = Category(id: 999, name: 'Nova Categoria');
+      const nonExistent = model.Category(id: 999, name: 'Nova Categoria');
       final success = await categoryRepo.updateCategory(nonExistent);
 
       expect(success, false);
     });
 
     test('5. should delete category by id', () async {
-      final created = await categoryRepo.createCategory(const Category(name: 'Temporária'));
+      final created = await categoryRepo.createCategory(const model.Category(name: 'Temporária'));
       final deleted = await categoryRepo.deleteCategory(created.id!);
 
       expect(deleted, true);
@@ -98,7 +98,7 @@ void main() {
     });
 
     test('6 & 7. should verify tasks remain and category_id becomes NULL after category deletion', () async {
-      final category = await categoryRepo.createCategory(const Category(name: 'Projetos'));
+      final category = await categoryRepo.createCategory(const model.Category(name: 'Projetos'));
 
       final task = await taskRepo.createTask(
         Task(

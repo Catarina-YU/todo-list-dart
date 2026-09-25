@@ -39,7 +39,9 @@ class LocalNotificationService implements NotificationService {
         iOS: iosSettings,
       );
 
-      await _plugin.initialize(settings);
+      await _plugin.initialize(
+        settings: settings,
+      );
     } catch (e) {
       debugPrint('Error initializing NotificationService: $e');
     }
@@ -103,14 +105,12 @@ class LocalNotificationService implements NotificationService {
       );
 
       await _plugin.zonedSchedule(
-        id,
-        title,
-        body,
-        scheduledTzDate,
-        details,
+        id: id,
+        title: title,
+        body: body,
+        scheduledDate: scheduledTzDate,
+        notificationDetails: details,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
       );
     } catch (e) {
       debugPrint('Error scheduling notification: $e');
@@ -120,7 +120,7 @@ class LocalNotificationService implements NotificationService {
   @override
   Future<void> cancelNotification(int id) async {
     try {
-      await _plugin.cancel(id);
+      await _plugin.cancel(id: id);
     } catch (e) {
       debugPrint('Error cancelling notification: $e');
     }

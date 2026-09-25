@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_todo/database/app_database.dart';
-import 'package:mobile_todo/models/category.dart';
+import 'package:mobile_todo/models/category.dart' as model;
 import 'package:mobile_todo/providers/category_provider.dart';
 import 'package:mobile_todo/providers/task_provider.dart';
 import 'package:mobile_todo/repositories/category_repository.dart';
@@ -68,7 +68,7 @@ void main() {
     });
 
     testWidgets('2. renders list when categories exist', (WidgetTester tester) async {
-      await categoryRepo.createCategory(const Category(name: 'Trabalho'));
+      await categoryRepo.createCategory(const model.Category(name: 'Trabalho'));
 
       await tester.pumpWidget(
         createTestableWidget(
@@ -103,7 +103,7 @@ void main() {
     });
 
     testWidgets('4. shows delete confirmation dialog when delete icon is pressed', (WidgetTester tester) async {
-      await categoryRepo.createCategory(const Category(name: 'Pessoal'));
+      await categoryRepo.createCategory(const model.Category(name: 'Pessoal'));
 
       await tester.pumpWidget(
         createTestableWidget(

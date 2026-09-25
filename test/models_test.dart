@@ -1,25 +1,25 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_todo/models/category.dart';
+import 'package:mobile_todo/models/category.dart' as model;
 import 'package:mobile_todo/models/task.dart';
 
 void main() {
   group('Category Model Tests', () {
     test('should create Category instance with required fields', () {
-      const category = Category(name: 'Trabalho');
+      const category = model.Category(name: 'Trabalho');
 
       expect(category.id, isNull);
       expect(category.name, 'Trabalho');
     });
 
     test('should create Category instance with id', () {
-      const category = Category(id: 1, name: 'Estudos');
+      const category = model.Category(id: 1, name: 'Estudos');
 
       expect(category.id, 1);
       expect(category.name, 'Estudos');
     });
 
     test('should support copyWith', () {
-      const category = Category(id: 1, name: 'Pessoal');
+      const category = model.Category(id: 1, name: 'Pessoal');
       final updated = category.copyWith(name: 'Casa');
 
       expect(updated.id, 1);
@@ -27,8 +27,8 @@ void main() {
     });
 
     test('should support value equality', () {
-      const cat1 = Category(id: 1, name: 'Trabalho');
-      const cat2 = Category(id: 1, name: 'Trabalho');
+      const cat1 = model.Category(id: 1, name: 'Trabalho');
+      const cat2 = model.Category(id: 1, name: 'Trabalho');
 
       expect(cat1, equals(cat2));
       expect(cat1.hashCode, equals(cat2.hashCode));

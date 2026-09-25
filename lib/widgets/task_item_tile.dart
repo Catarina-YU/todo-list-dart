@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/category.dart';
+import '../models/category.dart' as model;
 import '../models/task.dart';
 import '../providers/category_provider.dart';
 import '../providers/task_provider.dart';
@@ -26,7 +26,7 @@ class TaskItemTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoryProvider = context.watch<CategoryProvider>();
-    Category? category;
+    model.Category? category;
     if (task.categoryId != null) {
       for (final c in categoryProvider.categories) {
         if (c.id == task.categoryId) {

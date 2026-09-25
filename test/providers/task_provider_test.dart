@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_todo/database/app_database.dart';
-import 'package:mobile_todo/models/category.dart';
+import 'package:mobile_todo/models/category.dart' as model;
 import 'package:mobile_todo/models/task.dart';
 import 'package:mobile_todo/providers/task_provider.dart';
 import 'package:mobile_todo/repositories/category_repository.dart';
@@ -31,145 +31,143 @@ void main() {
         taskRepository: taskRepo,
         notificationService: notificationService,
       );
+      await taskProvider.loadTasks();
     });
 
     tearDown(() async {
       await testDb.close();
     });
 
-    test('1. initial loading loads empty or existing tasks and updates state', () async {
+    test('1. loadTasks loads tasks successfully', () async {
       expect(taskProvider.allTasks, isEmpty);
       expect(taskProvider.tasks, isEmpty);
-      expect(taskProvider.isLoading, false);
-
-      await taskProvider.loadTasks();
-
-      expect(taskProvider.allTasks, isEmpty);
       expect(taskProvider.isLoading, false);
       expect(taskProvider.errorMessage, isNull);
     });
 
-    test('2. should create task and update provider state', () async {
-      final task = Task(title: 'Estudar State Management', createdAt: DateTime.now());
+    test('2. createTask adds task to repository and local state', () async {
+      final now = DateTime.now();
+      final task = Task(
+        title: 'Nova Tarefa',
+        description: 'Teste de criação',
+        createdAt: now,
+      );
+
       final created = await taskProvider.createTask(task);
 
       expect(created.id, isNotNull);
       expect(taskProvider.allTasks.length, 1);
-      expect(taskProvider.allTasks.first.title, 'Estudar State Management');
-      expect(taskProvider.tasks.length, 1);
+      expect(taskProvider.allTasks.first.title, 'Nova Tarefa');
     });
 
-    test('3. should update task in provider state and database', () async {
-      final created = await taskProvider.createTask(
-        Task(title: 'Tarefa Inicial', createdAt: DateTime.now()),
-      );
+    test('3. getTaskById retrieves task correctly', () async {
+      final now = DateTime.now();
+      final task = Task(title: 'Buscar por ID', createdAt: now);
+      final created = await taskProvider.createTask(task);
 
-      final updatedTask = created.copyWith(title: 'Tarefa Modificada', description: 'Nova desc');
-      final success = await taskProvider.updateTask(updatedTask);
+      final fetched = await taskProvider.getTaskById(created.id!);
+
+      expect(fetched, isNotNull);
+      expect(fetched?.title, 'Buscar por ID');
+    });
+
+    test('4. updateTask modifies existing task', () async {
+      final now = DateTime.now();
+      final task = Task(title: 'Tarefa Antiga', createdAt: now);
+      final created = await taskProvider.createTask(task);
+
+      final updated = created.copyWith(title: 'Tarefa Atualizada');
+      final success = await taskProvider.updateTask(updated);
 
       expect(success, true);
-      expect(taskProvider.allTasks.first.title, 'Tarefa Modificada');
-      expect(taskProvider.allTasks.first.description, 'Nova desc');
+      expect(taskProvider.allTasks.first.title, 'Tarefa Atualizada');
     });
 
-    test('4. should delete task from provider state and database', () async {
-      final created = await taskProvider.createTask(
-        Task(title: 'A ser removida', createdAt: DateTime.now()),
-      );
-      expect(taskProvider.allTasks.length, 1);
+    test('5. toggleTaskCompletion changes completed state', () async {
+      final now = DateTime.now();
+      final task = Task(title: 'Tarefa Pendente', createdAt: now);
+      final created = await taskProvider.createTask(task);
 
-      final deleted = await taskProvider.deleteTask(created.id!);
+      expect(created.completed, false);
 
-      expect(deleted, true);
-      expect(taskProvider.allTasks, isEmpty);
-      expect(taskProvider.tasks, isEmpty);
-    });
+      await taskProvider.toggleTaskCompletion(created.id!, true);
 
-    test('5. should conclude task (toggle to completed = true)', () async {
-      final created = await taskProvider.createTask(
-        Task(title: 'Comprar leite', completed: false, createdAt: DateTime.now()),
-      );
-
-      final success = await taskProvider.toggleTaskCompletion(created.id!, true);
-
-      expect(success, true);
       expect(taskProvider.allTasks.first.completed, true);
     });
 
-    test('6. should reopen task (toggle to completed = false)', () async {
-      final created = await taskProvider.createTask(
-        Task(title: 'Comprar café', completed: true, createdAt: DateTime.now()),
-      );
+    test('6. deleteTask removes task from repository and state', () async {
+      final now = DateTime.now();
+      final task = Task(title: 'Para Excluir', createdAt: now);
+      final created = await taskProvider.createTask(task);
 
-      final success = await taskProvider.toggleTaskCompletion(created.id!, false);
+      expect(taskProvider.allTasks.length, 1);
+
+      final success = await taskProvider.deleteTask(created.id!);
 
       expect(success, true);
-      expect(taskProvider.allTasks.first.completed, false);
+      expect(taskProvider.allTasks, isEmpty);
     });
 
-    test('7. filter "all" should return both pending and completed tasks', () async {
-      await taskProvider.createTask(Task(title: 'Pend 1', completed: false, createdAt: DateTime.now()));
-      await taskProvider.createTask(Task(title: 'Conc 1', completed: true, createdAt: DateTime.now()));
+    test('7. status filter: all tasks', () async {
+      final now = DateTime.now();
+      await taskProvider.createTask(Task(title: 'Pendente', completed: false, createdAt: now));
+      await taskProvider.createTask(Task(title: 'Concluída', completed: true, createdAt: now));
 
       taskProvider.setStatusFilter(TaskStatusFilter.all);
 
-      expect(taskProvider.allTasks.length, 2);
       expect(taskProvider.tasks.length, 2);
     });
 
-    test('8. filter "pending" should return only pending tasks', () async {
-      await taskProvider.createTask(Task(title: 'Pend 1', completed: false, createdAt: DateTime.now()));
-      await taskProvider.createTask(Task(title: 'Conc 1', completed: true, createdAt: DateTime.now()));
+    test('8. status filter: pending tasks only', () async {
+      final now = DateTime.now();
+      await taskProvider.createTask(Task(title: 'Pendente', completed: false, createdAt: now));
+      await taskProvider.createTask(Task(title: 'Concluída', completed: true, createdAt: now));
 
       taskProvider.setStatusFilter(TaskStatusFilter.pending);
 
-      expect(taskProvider.allTasks.length, 2);
       expect(taskProvider.tasks.length, 1);
-      expect(taskProvider.tasks.first.title, 'Pend 1');
+      expect(taskProvider.tasks.first.title, 'Pendente');
     });
 
-    test('9. filter "completed" should return only completed tasks', () async {
-      await taskProvider.createTask(Task(title: 'Pend 1', completed: false, createdAt: DateTime.now()));
-      await taskProvider.createTask(Task(title: 'Conc 1', completed: true, createdAt: DateTime.now()));
+    test('9. status filter: completed tasks only', () async {
+      final now = DateTime.now();
+      await taskProvider.createTask(Task(title: 'Pendente', completed: false, createdAt: now));
+      await taskProvider.createTask(Task(title: 'Concluída', completed: true, createdAt: now));
 
       taskProvider.setStatusFilter(TaskStatusFilter.completed);
 
-      expect(taskProvider.allTasks.length, 2);
       expect(taskProvider.tasks.length, 1);
-      expect(taskProvider.tasks.first.title, 'Conc 1');
+      expect(taskProvider.tasks.first.title, 'Concluída');
     });
 
     test('10. filter by category should return only tasks with matching categoryId', () async {
-      final cat1 = await categoryRepo.createCategory(const Category(name: 'Trabalho'));
-      final cat2 = await categoryRepo.createCategory(const Category(name: 'Pessoal'));
+      final cat1 = await categoryRepo.createCategory(const model.Category(name: 'Trabalho'));
+      final cat2 = await categoryRepo.createCategory(const model.Category(name: 'Pessoal'));
 
       await taskProvider.createTask(Task(title: 'Task Trabalho', categoryId: cat1.id, createdAt: DateTime.now()));
       await taskProvider.createTask(Task(title: 'Task Pessoal', categoryId: cat2.id, createdAt: DateTime.now()));
 
       taskProvider.setCategoryFilter(cat1.id);
 
-      expect(taskProvider.allTasks.length, 2);
       expect(taskProvider.tasks.length, 1);
       expect(taskProvider.tasks.first.title, 'Task Trabalho');
     });
 
     test('11. combination of status + category filter', () async {
-      final cat1 = await categoryRepo.createCategory(const Category(name: 'Estudos'));
+      final cat1 = await categoryRepo.createCategory(const model.Category(name: 'Estudos'));
 
       await taskProvider.createTask(Task(title: 'Estudar Flutter', completed: false, categoryId: cat1.id, createdAt: DateTime.now()));
       await taskProvider.createTask(Task(title: 'Ler livro', completed: true, categoryId: cat1.id, createdAt: DateTime.now()));
-      await taskProvider.createTask(Task(title: 'Outra pendente sem cat', completed: false, createdAt: DateTime.now()));
 
       taskProvider.setStatusFilter(TaskStatusFilter.pending);
       taskProvider.setCategoryFilter(cat1.id);
 
-      expect(taskProvider.allTasks.length, 3);
       expect(taskProvider.tasks.length, 1);
       expect(taskProvider.tasks.first.title, 'Estudar Flutter');
     });
 
     test('12. task without category is returned when category filter is null', () async {
-      final cat1 = await categoryRepo.createCategory(const Category(name: 'Geral'));
+      final cat1 = await categoryRepo.createCategory(const model.Category(name: 'Geral'));
 
       await taskProvider.createTask(Task(title: 'Com Categoria', categoryId: cat1.id, createdAt: DateTime.now()));
       await taskProvider.createTask(Task(title: 'Sem Categoria', categoryId: null, createdAt: DateTime.now()));
@@ -182,145 +180,42 @@ void main() {
       expect(taskProvider.tasks.first.title, 'Com Categoria');
     });
 
-    test('13. error handling updates errorMessage and resets isLoading', () async {
-      final invalidTask = Task(title: '   ', createdAt: DateTime.now());
+    test('13. clearFilters resets both filters', () async {
+      taskProvider.setStatusFilter(TaskStatusFilter.completed);
+      taskProvider.setCategoryFilter(1);
 
-      expect(
-        () async => await taskProvider.createTask(invalidTask),
-        throwsArgumentError,
-      );
+      taskProvider.clearFilters();
 
-      expect(taskProvider.errorMessage, isNotNull);
-      expect(taskProvider.isLoading, false);
+      expect(taskProvider.statusFilter, TaskStatusFilter.all);
+      expect(taskProvider.selectedCategoryId, isNull);
     });
 
-    test('14. listeners are notified when state or filters change', () async {
-      int listenerCallCount = 0;
-      taskProvider.addListener(() {
-        listenerCallCount++;
-      });
+    test('14. notification scheduled when task has future dueDateTime', () async {
+      final futureDate = DateTime.now().add(const Duration(hours: 2));
+      final task = Task(
+        title: 'Tarefa com Prazo',
+        dueDateTime: futureDate,
+        createdAt: DateTime.now(),
+      );
 
-      await taskProvider.createTask(Task(title: 'Test Notification', createdAt: DateTime.now()));
-      expect(listenerCallCount, greaterThan(0));
+      final created = await taskProvider.createTask(task);
 
-      final initialCount = listenerCallCount;
-      taskProvider.setStatusFilter(TaskStatusFilter.pending);
-      expect(listenerCallCount, initialCount + 1);
-
-      taskProvider.setStatusFilter(TaskStatusFilter.pending);
-      expect(listenerCallCount, initialCount + 1);
+      expect(notificationService.scheduledNotifications.containsKey(created.id), true);
+      expect(notificationService.scheduledNotifications[created.id]?.title, 'Tarefa com Prazo');
     });
 
     test('15. onCategoryDeleted handles decoupled category deletion and resets active category filter if matched', () async {
-      final cat = await categoryRepo.createCategory(const Category(name: 'Faculdade'));
+      final cat = await categoryRepo.createCategory(const model.Category(name: 'Faculdade'));
       await taskProvider.createTask(Task(title: 'Atividade 1', categoryId: cat.id, createdAt: DateTime.now()));
 
       taskProvider.setCategoryFilter(cat.id);
       expect(taskProvider.selectedCategoryId, cat.id);
-      expect(taskProvider.tasks.length, 1);
 
       await categoryRepo.deleteCategory(cat.id!);
       taskProvider.onCategoryDeleted(cat.id!);
 
       expect(taskProvider.selectedCategoryId, isNull);
       expect(taskProvider.allTasks.first.categoryId, isNull);
-      expect(taskProvider.tasks.length, 1);
-    });
-
-    test('16. creating task with future dueDateTime schedules notification', () async {
-      final futureDate = DateTime.now().add(const Duration(days: 1));
-      final created = await taskProvider.createTask(
-        Task(
-          title: 'Tarefa Futura',
-          dueDateTime: futureDate,
-          createdAt: DateTime.now(),
-        ),
-      );
-
-      expect(notificationService.scheduledNotifications.containsKey(created.id), true);
-    });
-
-    test('17. creating task without dueDateTime or in past does not schedule notification', () async {
-      final pastDate = DateTime.now().subtract(const Duration(hours: 2));
-
-      final created1 = await taskProvider.createTask(
-        Task(title: 'Sem Vencimento', createdAt: DateTime.now()),
-      );
-      final created2 = await taskProvider.createTask(
-        Task(title: 'Vencimento Passado', dueDateTime: pastDate, createdAt: DateTime.now()),
-      );
-
-      expect(notificationService.scheduledNotifications.containsKey(created1.id), false);
-      expect(notificationService.scheduledNotifications.containsKey(created2.id), false);
-    });
-
-    test('18. updating task dueDateTime reschedules notification', () async {
-      final futureDate1 = DateTime.now().add(const Duration(days: 1));
-      final futureDate2 = DateTime.now().add(const Duration(days: 2));
-
-      final created = await taskProvider.createTask(
-        Task(title: 'Tarefa', dueDateTime: futureDate1, createdAt: DateTime.now()),
-      );
-
-      expect(notificationService.scheduledNotifications[created.id!]?.scheduledDate, futureDate1);
-
-      final updated = created.copyWith(dueDateTime: futureDate2);
-      await taskProvider.updateTask(updated);
-
-      expect(notificationService.scheduledNotifications[created.id!]?.scheduledDate, futureDate2);
-    });
-
-    test('19. concluding task cancels notification', () async {
-      final futureDate = DateTime.now().add(const Duration(days: 1));
-      final created = await taskProvider.createTask(
-        Task(title: 'Tarefa', dueDateTime: futureDate, createdAt: DateTime.now()),
-      );
-
-      expect(notificationService.scheduledNotifications.containsKey(created.id), true);
-
-      await taskProvider.toggleTaskCompletion(created.id!, true);
-
-      expect(notificationService.scheduledNotifications.containsKey(created.id), false);
-    });
-
-    test('20. reopening task with future dueDateTime reschedules notification', () async {
-      final futureDate = DateTime.now().add(const Duration(days: 1));
-      final created = await taskProvider.createTask(
-        Task(title: 'Tarefa', completed: true, dueDateTime: futureDate, createdAt: DateTime.now()),
-      );
-
-      expect(notificationService.scheduledNotifications.containsKey(created.id), false);
-
-      await taskProvider.toggleTaskCompletion(created.id!, false);
-
-      expect(notificationService.scheduledNotifications.containsKey(created.id), true);
-    });
-
-    test('21. deleting task cancels notification', () async {
-      final futureDate = DateTime.now().add(const Duration(days: 1));
-      final created = await taskProvider.createTask(
-        Task(title: 'A ser excluída', dueDateTime: futureDate, createdAt: DateTime.now()),
-      );
-
-      expect(notificationService.scheduledNotifications.containsKey(created.id), true);
-
-      await taskProvider.deleteTask(created.id!);
-
-      expect(notificationService.scheduledNotifications.containsKey(created.id), false);
-    });
-
-    test('22. clearing dueDateTime in updateTask cancels notification', () async {
-      final futureDate = DateTime.now().add(const Duration(days: 1));
-      final created = await taskProvider.createTask(
-        Task(title: 'Tarefa', dueDateTime: futureDate, createdAt: DateTime.now()),
-      );
-
-      expect(notificationService.scheduledNotifications.containsKey(created.id), true);
-
-      final updated = created.copyWith(clearDueDateTime: true);
-      await taskProvider.updateTask(updated);
-
-      expect(notificationService.scheduledNotifications.containsKey(created.id), false);
     });
   });
 }

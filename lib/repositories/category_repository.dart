@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import '../database/app_database.dart';
-import '../models/category.dart';
+import '../models/category.dart' as model;
 
 class CategoryRepository {
   final AppDatabase _appDatabase;
@@ -18,7 +18,7 @@ class CategoryRepository {
   }
 
   /// Maps a Category object to a SQLite Map
-  Map<String, dynamic> _toMap(Category category) {
+  Map<String, dynamic> _toMap(model.Category category) {
     final map = <String, dynamic>{
       'name': category.name,
     };
@@ -29,15 +29,15 @@ class CategoryRepository {
   }
 
   /// Maps a SQLite Map to a Category object
-  Category _fromMap(Map<String, dynamic> map) {
-    return Category(
+  model.Category _fromMap(Map<String, dynamic> map) {
+    return model.Category(
       id: map['id'] as int?,
       name: map['name'] as String,
     );
   }
 
   /// Persists a new Category. Throws [ArgumentError] if name is empty.
-  Future<Category> createCategory(Category category) async {
+  Future<model.Category> createCategory(model.Category category) async {
     if (category.name.trim().isEmpty) {
       throw ArgumentError('Category name cannot be empty');
     }
@@ -48,14 +48,14 @@ class CategoryRepository {
   }
 
   /// Retrieves all categories ordered by name.
-  Future<List<Category>> getAllCategories() async {
+  Future<List<model.Category>> getAllCategories() async {
     final db = await _getDb();
     final maps = await db.query('categories', orderBy: 'name ASC');
     return maps.map(_fromMap).toList();
   }
 
   /// Retrieves a category by ID. Returns `null` if not found.
-  Future<Category?> getCategoryById(int id) async {
+  Future<model.Category?> getCategoryById(int id) async {
     final db = await _getDb();
     final maps = await db.query(
       'categories',
@@ -69,7 +69,7 @@ class CategoryRepository {
 
   /// Updates an existing category. Throws [ArgumentError] if ID is null or name is empty.
   /// Returns `true` if updated, `false` if ID does not exist.
-  Future<bool> updateCategory(Category category) async {
+  Future<bool> updateCategory(model.Category category) async {
     if (category.id == null) {
       throw ArgumentError('Category ID cannot be null when updating');
     }

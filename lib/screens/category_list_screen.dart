@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/category.dart';
+import '../models/category.dart' as model;
 import '../providers/category_provider.dart';
 import '../providers/task_provider.dart';
 import '../widgets/category_dialog.dart';
@@ -21,7 +21,7 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
     });
   }
 
-  Future<void> _openCategoryDialog([Category? category]) async {
+  Future<void> _openCategoryDialog([model.Category? category]) async {
     final name = await showDialog<String>(
       context: context,
       builder: (_) => CategoryDialog(category: category),
@@ -30,14 +30,14 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
     if (name != null && mounted) {
       final categoryProvider = context.read<CategoryProvider>();
       if (category == null) {
-        await categoryProvider.createCategory(Category(name: name));
+        await categoryProvider.createCategory(model.Category(name: name));
       } else {
         await categoryProvider.updateCategory(category.copyWith(name: name));
       }
     }
   }
 
-  Future<void> _confirmDelete(Category category) async {
+  Future<void> _confirmDelete(model.Category category) async {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(

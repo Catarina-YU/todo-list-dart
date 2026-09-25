@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_todo/database/app_database.dart';
-import 'package:mobile_todo/models/category.dart';
+import 'package:mobile_todo/models/category.dart' as model;
 import 'package:mobile_todo/providers/category_provider.dart';
 import 'package:mobile_todo/repositories/category_repository.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -39,7 +39,7 @@ void main() {
     });
 
     test('2. should create category and update provider state', () async {
-      const category = Category(name: 'Estudos');
+      const category = model.Category(name: 'Estudos');
       final created = await categoryProvider.createCategory(category);
 
       expect(created.id, isNotNull);
@@ -49,7 +49,7 @@ void main() {
 
     test('3. should update/rename category in provider state and database', () async {
       final created = await categoryProvider.createCategory(
-        const Category(name: 'Trabalho'),
+        const model.Category(name: 'Trabalho'),
       );
 
       final updated = created.copyWith(name: 'Trabalho & Projetos');
@@ -61,7 +61,7 @@ void main() {
 
     test('4. should delete category from provider state and trigger onCategoryDeleted callback', () async {
       final created = await categoryProvider.createCategory(
-        const Category(name: 'Casa'),
+        const model.Category(name: 'Casa'),
       );
       expect(categoryProvider.categories.length, 1);
 
@@ -79,7 +79,7 @@ void main() {
     });
 
     test('5. error handling updates errorMessage and resets isLoading when invalid category name is provided', () async {
-      const invalidCategory = Category(name: '   ');
+      const invalidCategory = model.Category(name: '   ');
 
       expect(
         () async => await categoryProvider.createCategory(invalidCategory),
@@ -96,13 +96,13 @@ void main() {
         listenerCallCount++;
       });
 
-      await categoryProvider.createCategory(const Category(name: 'Saúde'));
+      await categoryProvider.createCategory(const model.Category(name: 'Saúde'));
       expect(listenerCallCount, greaterThan(0));
     });
 
     test('7. should retrieve category by id', () async {
       final created = await categoryProvider.createCategory(
-        const Category(name: 'Finanças'),
+        const model.Category(name: 'Finanças'),
       );
 
       final fetched = await categoryProvider.getCategoryById(created.id!);

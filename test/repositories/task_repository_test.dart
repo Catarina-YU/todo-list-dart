@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_todo/database/app_database.dart';
-import 'package:mobile_todo/models/category.dart';
+import 'package:mobile_todo/models/category.dart' as model;
 import 'package:mobile_todo/models/task.dart';
 import 'package:mobile_todo/repositories/category_repository.dart';
 import 'package:mobile_todo/repositories/task_repository.dart';
@@ -150,7 +150,7 @@ void main() {
     });
 
     test('8. should persist task with category (categoryId is assigned)', () async {
-      final category = await categoryRepo.createCategory(const Category(name: 'Faculdade'));
+      final category = await categoryRepo.createCategory(const model.Category(name: 'Faculdade'));
 
       final created = await taskRepo.createTask(
         Task(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../models/category.dart';
+import '../models/category.dart' as model;
 
 class CategoryDialog extends StatefulWidget {
-  final Category? category;
+  final model.Category? category;
 
   const CategoryDialog({super.key, this.category});
 
