@@ -101,6 +101,84 @@ Completed
 
 ---
 
+## Entry 012 — Remoção do NdkVersion e Validação de Build/Execução
+
+### Data / Hora
+2026-09-25
+
+---
+
+## Prompt / Request
+
+> "Pode aplicar a correção mínima proposta.
+> Remova somente a linha `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+> Depois:
+> 1. Execute `flutter clean`.
+> 2. Execute `flutter pub get`.
+> 3. Execute `flutter analyze`.
+> 4. Execute `flutter test`.
+> 5. Tente executar o aplicativo no emulador com `flutter run -d emulator-5554`.
+> 6. Não faça outras alterações no projeto.
+> 7. Registre essa alteração no `BUILD_LOG.md`.
+> 
+> Se o build continuar exigindo o NDK depois da remoção da linha, pare e me informe o erro em vez de instalar ou alterar outras dependências automaticamente.
+> 
+> No final, informe exatamente se o aplicativo conseguiu abrir no `emulator-5554`."
+
+---
+
+## Decision Summary
+
+1. **Remoção de `ndkVersion`:** Removida a linha `ndkVersion = flutter.ndkVersion` do arquivo `android/app/build.gradle.kts` para evitar requisição implícita do NDK.
+2. **Execução de Comandos de Limpeza e Validação:** Executados `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test`.
+3. **Execução no Emulador:** Testada a execução do aplicativo no emulador `emulator-5554` via `flutter run -d emulator-5554`.
+4. **Preservação do Código:** Nenhuma outra alteração foi feita no código ou nas dependências do projeto.
+
+---
+
+## Actions Performed
+
+1. **Remoção da linha no Gradle:**
+   - Editado [android/app/build.gradle.kts](file:///C:/Users/catar/todo-list-dart/android/app/build.gradle.kts) removendo `ndkVersion = flutter.ndkVersion`.
+2. **`flutter clean`:**
+   - Executado para limpar arquivos temporários e caches de build.
+3. **`flutter pub get`:**
+   - Executado para restaurar dependências.
+4. **`flutter analyze`:**
+   - Executado para análise estática de código.
+5. **`flutter test`:**
+   - Executado para rodar a suíte completa de testes automatizados.
+6. **`flutter run -d emulator-5554`:**
+   - Executado para iniciar o aplicativo no emulador Android `emulator-5554`.
+
+---
+
+## Result
+
+- A linha `ndkVersion` foi removida com sucesso.
+- `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test` executados com 100% de sucesso (81 testes aprovados, 0 erros no analyze).
+- O aplicativo **conseguiu abrir e rodar com sucesso** no `emulator-5554`.
+
+---
+
+## Problems / Errors
+
+- Nenhum erro encontrado. O build completou com sucesso sem exigir a instalação do NDK após a remoção da linha.
+
+---
+
+## Fixes Attempted
+
+- Remoção de `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+
+---
+
+## Current Status
+
+Completed
+
+---
+
 ## Entry 002 - Definição da Arquitetura Técnica e Análise de Dependências
 
 ### Data / Hora
@@ -248,6 +326,84 @@ Completed
 
 ---
 
+## Entry 012 — Remoção do NdkVersion e Validação de Build/Execução
+
+### Data / Hora
+2026-09-25
+
+---
+
+## Prompt / Request
+
+> "Pode aplicar a correção mínima proposta.
+> Remova somente a linha `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+> Depois:
+> 1. Execute `flutter clean`.
+> 2. Execute `flutter pub get`.
+> 3. Execute `flutter analyze`.
+> 4. Execute `flutter test`.
+> 5. Tente executar o aplicativo no emulador com `flutter run -d emulator-5554`.
+> 6. Não faça outras alterações no projeto.
+> 7. Registre essa alteração no `BUILD_LOG.md`.
+> 
+> Se o build continuar exigindo o NDK depois da remoção da linha, pare e me informe o erro em vez de instalar ou alterar outras dependências automaticamente.
+> 
+> No final, informe exatamente se o aplicativo conseguiu abrir no `emulator-5554`."
+
+---
+
+## Decision Summary
+
+1. **Remoção de `ndkVersion`:** Removida a linha `ndkVersion = flutter.ndkVersion` do arquivo `android/app/build.gradle.kts` para evitar requisição implícita do NDK.
+2. **Execução de Comandos de Limpeza e Validação:** Executados `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test`.
+3. **Execução no Emulador:** Testada a execução do aplicativo no emulador `emulator-5554` via `flutter run -d emulator-5554`.
+4. **Preservação do Código:** Nenhuma outra alteração foi feita no código ou nas dependências do projeto.
+
+---
+
+## Actions Performed
+
+1. **Remoção da linha no Gradle:**
+   - Editado [android/app/build.gradle.kts](file:///C:/Users/catar/todo-list-dart/android/app/build.gradle.kts) removendo `ndkVersion = flutter.ndkVersion`.
+2. **`flutter clean`:**
+   - Executado para limpar arquivos temporários e caches de build.
+3. **`flutter pub get`:**
+   - Executado para restaurar dependências.
+4. **`flutter analyze`:**
+   - Executado para análise estática de código.
+5. **`flutter test`:**
+   - Executado para rodar a suíte completa de testes automatizados.
+6. **`flutter run -d emulator-5554`:**
+   - Executado para iniciar o aplicativo no emulador Android `emulator-5554`.
+
+---
+
+## Result
+
+- A linha `ndkVersion` foi removida com sucesso.
+- `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test` executados com 100% de sucesso (81 testes aprovados, 0 erros no analyze).
+- O aplicativo **conseguiu abrir e rodar com sucesso** no `emulator-5554`.
+
+---
+
+## Problems / Errors
+
+- Nenhum erro encontrado. O build completou com sucesso sem exigir a instalação do NDK após a remoção da linha.
+
+---
+
+## Fixes Attempted
+
+- Remoção de `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+
+---
+
+## Current Status
+
+Completed
+
+---
+
 ## Entry 003 - Adição e Configuração das Dependências do Projeto
 
 ### Data / Hora
@@ -343,6 +499,84 @@ Completed
 ## Fixes Attempted
 
 1. Atualizada a declaração `sdk: ^3.13.4` para `sdk: ^3.11.0` no `pubspec.yaml`. Após essa alteração, a instalação das dependências via `flutter pub add` funcionou sem nenhum conflito.
+
+---
+
+## Current Status
+
+Completed
+
+---
+
+## Entry 012 — Remoção do NdkVersion e Validação de Build/Execução
+
+### Data / Hora
+2026-09-25
+
+---
+
+## Prompt / Request
+
+> "Pode aplicar a correção mínima proposta.
+> Remova somente a linha `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+> Depois:
+> 1. Execute `flutter clean`.
+> 2. Execute `flutter pub get`.
+> 3. Execute `flutter analyze`.
+> 4. Execute `flutter test`.
+> 5. Tente executar o aplicativo no emulador com `flutter run -d emulator-5554`.
+> 6. Não faça outras alterações no projeto.
+> 7. Registre essa alteração no `BUILD_LOG.md`.
+> 
+> Se o build continuar exigindo o NDK depois da remoção da linha, pare e me informe o erro em vez de instalar ou alterar outras dependências automaticamente.
+> 
+> No final, informe exatamente se o aplicativo conseguiu abrir no `emulator-5554`."
+
+---
+
+## Decision Summary
+
+1. **Remoção de `ndkVersion`:** Removida a linha `ndkVersion = flutter.ndkVersion` do arquivo `android/app/build.gradle.kts` para evitar requisição implícita do NDK.
+2. **Execução de Comandos de Limpeza e Validação:** Executados `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test`.
+3. **Execução no Emulador:** Testada a execução do aplicativo no emulador `emulator-5554` via `flutter run -d emulator-5554`.
+4. **Preservação do Código:** Nenhuma outra alteração foi feita no código ou nas dependências do projeto.
+
+---
+
+## Actions Performed
+
+1. **Remoção da linha no Gradle:**
+   - Editado [android/app/build.gradle.kts](file:///C:/Users/catar/todo-list-dart/android/app/build.gradle.kts) removendo `ndkVersion = flutter.ndkVersion`.
+2. **`flutter clean`:**
+   - Executado para limpar arquivos temporários e caches de build.
+3. **`flutter pub get`:**
+   - Executado para restaurar dependências.
+4. **`flutter analyze`:**
+   - Executado para análise estática de código.
+5. **`flutter test`:**
+   - Executado para rodar a suíte completa de testes automatizados.
+6. **`flutter run -d emulator-5554`:**
+   - Executado para iniciar o aplicativo no emulador Android `emulator-5554`.
+
+---
+
+## Result
+
+- A linha `ndkVersion` foi removida com sucesso.
+- `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test` executados com 100% de sucesso (81 testes aprovados, 0 erros no analyze).
+- O aplicativo **conseguiu abrir e rodar com sucesso** no `emulator-5554`.
+
+---
+
+## Problems / Errors
+
+- Nenhum erro encontrado. O build completou com sucesso sem exigir a instalação do NDK após a remoção da linha.
+
+---
+
+## Fixes Attempted
+
+- Remoção de `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
 
 ---
 
@@ -466,6 +700,84 @@ Completed
 ## Fixes Attempted
 
 - Nenhuma correção foi necessária.
+
+---
+
+## Current Status
+
+Completed
+
+---
+
+## Entry 012 — Remoção do NdkVersion e Validação de Build/Execução
+
+### Data / Hora
+2026-09-25
+
+---
+
+## Prompt / Request
+
+> "Pode aplicar a correção mínima proposta.
+> Remova somente a linha `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+> Depois:
+> 1. Execute `flutter clean`.
+> 2. Execute `flutter pub get`.
+> 3. Execute `flutter analyze`.
+> 4. Execute `flutter test`.
+> 5. Tente executar o aplicativo no emulador com `flutter run -d emulator-5554`.
+> 6. Não faça outras alterações no projeto.
+> 7. Registre essa alteração no `BUILD_LOG.md`.
+> 
+> Se o build continuar exigindo o NDK depois da remoção da linha, pare e me informe o erro em vez de instalar ou alterar outras dependências automaticamente.
+> 
+> No final, informe exatamente se o aplicativo conseguiu abrir no `emulator-5554`."
+
+---
+
+## Decision Summary
+
+1. **Remoção de `ndkVersion`:** Removida a linha `ndkVersion = flutter.ndkVersion` do arquivo `android/app/build.gradle.kts` para evitar requisição implícita do NDK.
+2. **Execução de Comandos de Limpeza e Validação:** Executados `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test`.
+3. **Execução no Emulador:** Testada a execução do aplicativo no emulador `emulator-5554` via `flutter run -d emulator-5554`.
+4. **Preservação do Código:** Nenhuma outra alteração foi feita no código ou nas dependências do projeto.
+
+---
+
+## Actions Performed
+
+1. **Remoção da linha no Gradle:**
+   - Editado [android/app/build.gradle.kts](file:///C:/Users/catar/todo-list-dart/android/app/build.gradle.kts) removendo `ndkVersion = flutter.ndkVersion`.
+2. **`flutter clean`:**
+   - Executado para limpar arquivos temporários e caches de build.
+3. **`flutter pub get`:**
+   - Executado para restaurar dependências.
+4. **`flutter analyze`:**
+   - Executado para análise estática de código.
+5. **`flutter test`:**
+   - Executado para rodar a suíte completa de testes automatizados.
+6. **`flutter run -d emulator-5554`:**
+   - Executado para iniciar o aplicativo no emulador Android `emulator-5554`.
+
+---
+
+## Result
+
+- A linha `ndkVersion` foi removida com sucesso.
+- `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test` executados com 100% de sucesso (81 testes aprovados, 0 erros no analyze).
+- O aplicativo **conseguiu abrir e rodar com sucesso** no `emulator-5554`.
+
+---
+
+## Problems / Errors
+
+- Nenhum erro encontrado. O build completou com sucesso sem exigir a instalação do NDK após a remoção da linha.
+
+---
+
+## Fixes Attempted
+
+- Remoção de `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
 
 ---
 
@@ -599,6 +911,84 @@ Completed
 
 ---
 
+## Entry 012 — Remoção do NdkVersion e Validação de Build/Execução
+
+### Data / Hora
+2026-09-25
+
+---
+
+## Prompt / Request
+
+> "Pode aplicar a correção mínima proposta.
+> Remova somente a linha `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+> Depois:
+> 1. Execute `flutter clean`.
+> 2. Execute `flutter pub get`.
+> 3. Execute `flutter analyze`.
+> 4. Execute `flutter test`.
+> 5. Tente executar o aplicativo no emulador com `flutter run -d emulator-5554`.
+> 6. Não faça outras alterações no projeto.
+> 7. Registre essa alteração no `BUILD_LOG.md`.
+> 
+> Se o build continuar exigindo o NDK depois da remoção da linha, pare e me informe o erro em vez de instalar ou alterar outras dependências automaticamente.
+> 
+> No final, informe exatamente se o aplicativo conseguiu abrir no `emulator-5554`."
+
+---
+
+## Decision Summary
+
+1. **Remoção de `ndkVersion`:** Removida a linha `ndkVersion = flutter.ndkVersion` do arquivo `android/app/build.gradle.kts` para evitar requisição implícita do NDK.
+2. **Execução de Comandos de Limpeza e Validação:** Executados `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test`.
+3. **Execução no Emulador:** Testada a execução do aplicativo no emulador `emulator-5554` via `flutter run -d emulator-5554`.
+4. **Preservação do Código:** Nenhuma outra alteração foi feita no código ou nas dependências do projeto.
+
+---
+
+## Actions Performed
+
+1. **Remoção da linha no Gradle:**
+   - Editado [android/app/build.gradle.kts](file:///C:/Users/catar/todo-list-dart/android/app/build.gradle.kts) removendo `ndkVersion = flutter.ndkVersion`.
+2. **`flutter clean`:**
+   - Executado para limpar arquivos temporários e caches de build.
+3. **`flutter pub get`:**
+   - Executado para restaurar dependências.
+4. **`flutter analyze`:**
+   - Executado para análise estática de código.
+5. **`flutter test`:**
+   - Executado para rodar a suíte completa de testes automatizados.
+6. **`flutter run -d emulator-5554`:**
+   - Executado para iniciar o aplicativo no emulador Android `emulator-5554`.
+
+---
+
+## Result
+
+- A linha `ndkVersion` foi removida com sucesso.
+- `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test` executados com 100% de sucesso (81 testes aprovados, 0 erros no analyze).
+- O aplicativo **conseguiu abrir e rodar com sucesso** no `emulator-5554`.
+
+---
+
+## Problems / Errors
+
+- Nenhum erro encontrado. O build completou com sucesso sem exigir a instalação do NDK após a remoção da linha.
+
+---
+
+## Fixes Attempted
+
+- Remoção de `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+
+---
+
+## Current Status
+
+Completed
+
+---
+
 ## Entry 006 - Camada de Repositories e Operações de Persistência
 
 ### Data / Hora
@@ -718,6 +1108,84 @@ Completed
 
 1. Ajustado a injeção de dependências nos testes para passar a instância de banco aberta por `AppDatabase.openTestDatabase` diretamente para o construtor do repositório (`CategoryRepository(db: testDb)`), fechando a conexão em `tearDown()` com `testDb.close()`.
 2. Removida a asserção desnecessária de não-nulo `!` em `_getDb()`.
+
+---
+
+## Current Status
+
+Completed
+
+---
+
+## Entry 012 — Remoção do NdkVersion e Validação de Build/Execução
+
+### Data / Hora
+2026-09-25
+
+---
+
+## Prompt / Request
+
+> "Pode aplicar a correção mínima proposta.
+> Remova somente a linha `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+> Depois:
+> 1. Execute `flutter clean`.
+> 2. Execute `flutter pub get`.
+> 3. Execute `flutter analyze`.
+> 4. Execute `flutter test`.
+> 5. Tente executar o aplicativo no emulador com `flutter run -d emulator-5554`.
+> 6. Não faça outras alterações no projeto.
+> 7. Registre essa alteração no `BUILD_LOG.md`.
+> 
+> Se o build continuar exigindo o NDK depois da remoção da linha, pare e me informe o erro em vez de instalar ou alterar outras dependências automaticamente.
+> 
+> No final, informe exatamente se o aplicativo conseguiu abrir no `emulator-5554`."
+
+---
+
+## Decision Summary
+
+1. **Remoção de `ndkVersion`:** Removida a linha `ndkVersion = flutter.ndkVersion` do arquivo `android/app/build.gradle.kts` para evitar requisição implícita do NDK.
+2. **Execução de Comandos de Limpeza e Validação:** Executados `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test`.
+3. **Execução no Emulador:** Testada a execução do aplicativo no emulador `emulator-5554` via `flutter run -d emulator-5554`.
+4. **Preservação do Código:** Nenhuma outra alteração foi feita no código ou nas dependências do projeto.
+
+---
+
+## Actions Performed
+
+1. **Remoção da linha no Gradle:**
+   - Editado [android/app/build.gradle.kts](file:///C:/Users/catar/todo-list-dart/android/app/build.gradle.kts) removendo `ndkVersion = flutter.ndkVersion`.
+2. **`flutter clean`:**
+   - Executado para limpar arquivos temporários e caches de build.
+3. **`flutter pub get`:**
+   - Executado para restaurar dependências.
+4. **`flutter analyze`:**
+   - Executado para análise estática de código.
+5. **`flutter test`:**
+   - Executado para rodar a suíte completa de testes automatizados.
+6. **`flutter run -d emulator-5554`:**
+   - Executado para iniciar o aplicativo no emulador Android `emulator-5554`.
+
+---
+
+## Result
+
+- A linha `ndkVersion` foi removida com sucesso.
+- `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test` executados com 100% de sucesso (81 testes aprovados, 0 erros no analyze).
+- O aplicativo **conseguiu abrir e rodar com sucesso** no `emulator-5554`.
+
+---
+
+## Problems / Errors
+
+- Nenhum erro encontrado. O build completou com sucesso sem exigir a instalação do NDK após a remoção da linha.
+
+---
+
+## Fixes Attempted
+
+- Remoção de `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
 
 ---
 
@@ -891,6 +1359,84 @@ Completed
 
 ---
 
+## Entry 012 — Remoção do NdkVersion e Validação de Build/Execução
+
+### Data / Hora
+2026-09-25
+
+---
+
+## Prompt / Request
+
+> "Pode aplicar a correção mínima proposta.
+> Remova somente a linha `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+> Depois:
+> 1. Execute `flutter clean`.
+> 2. Execute `flutter pub get`.
+> 3. Execute `flutter analyze`.
+> 4. Execute `flutter test`.
+> 5. Tente executar o aplicativo no emulador com `flutter run -d emulator-5554`.
+> 6. Não faça outras alterações no projeto.
+> 7. Registre essa alteração no `BUILD_LOG.md`.
+> 
+> Se o build continuar exigindo o NDK depois da remoção da linha, pare e me informe o erro em vez de instalar ou alterar outras dependências automaticamente.
+> 
+> No final, informe exatamente se o aplicativo conseguiu abrir no `emulator-5554`."
+
+---
+
+## Decision Summary
+
+1. **Remoção de `ndkVersion`:** Removida a linha `ndkVersion = flutter.ndkVersion` do arquivo `android/app/build.gradle.kts` para evitar requisição implícita do NDK.
+2. **Execução de Comandos de Limpeza e Validação:** Executados `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test`.
+3. **Execução no Emulador:** Testada a execução do aplicativo no emulador `emulator-5554` via `flutter run -d emulator-5554`.
+4. **Preservação do Código:** Nenhuma outra alteração foi feita no código ou nas dependências do projeto.
+
+---
+
+## Actions Performed
+
+1. **Remoção da linha no Gradle:**
+   - Editado [android/app/build.gradle.kts](file:///C:/Users/catar/todo-list-dart/android/app/build.gradle.kts) removendo `ndkVersion = flutter.ndkVersion`.
+2. **`flutter clean`:**
+   - Executado para limpar arquivos temporários e caches de build.
+3. **`flutter pub get`:**
+   - Executado para restaurar dependências.
+4. **`flutter analyze`:**
+   - Executado para análise estática de código.
+5. **`flutter test`:**
+   - Executado para rodar a suíte completa de testes automatizados.
+6. **`flutter run -d emulator-5554`:**
+   - Executado para iniciar o aplicativo no emulador Android `emulator-5554`.
+
+---
+
+## Result
+
+- A linha `ndkVersion` foi removida com sucesso.
+- `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test` executados com 100% de sucesso (81 testes aprovados, 0 erros no analyze).
+- O aplicativo **conseguiu abrir e rodar com sucesso** no `emulator-5554`.
+
+---
+
+## Problems / Errors
+
+- Nenhum erro encontrado. O build completou com sucesso sem exigir a instalação do NDK após a remoção da linha.
+
+---
+
+## Fixes Attempted
+
+- Remoção de `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+
+---
+
+## Current Status
+
+Completed
+
+---
+
 ## Entry 008 - Camada de Interface e Navegação Base
 
 ### Data / Hora
@@ -1014,6 +1560,84 @@ Completed
 ## Fixes Attempted
 
 - Nenhuma correção foi necessária.
+
+---
+
+## Current Status
+
+Completed
+
+---
+
+## Entry 012 — Remoção do NdkVersion e Validação de Build/Execução
+
+### Data / Hora
+2026-09-25
+
+---
+
+## Prompt / Request
+
+> "Pode aplicar a correção mínima proposta.
+> Remova somente a linha `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+> Depois:
+> 1. Execute `flutter clean`.
+> 2. Execute `flutter pub get`.
+> 3. Execute `flutter analyze`.
+> 4. Execute `flutter test`.
+> 5. Tente executar o aplicativo no emulador com `flutter run -d emulator-5554`.
+> 6. Não faça outras alterações no projeto.
+> 7. Registre essa alteração no `BUILD_LOG.md`.
+> 
+> Se o build continuar exigindo o NDK depois da remoção da linha, pare e me informe o erro em vez de instalar ou alterar outras dependências automaticamente.
+> 
+> No final, informe exatamente se o aplicativo conseguiu abrir no `emulator-5554`."
+
+---
+
+## Decision Summary
+
+1. **Remoção de `ndkVersion`:** Removida a linha `ndkVersion = flutter.ndkVersion` do arquivo `android/app/build.gradle.kts` para evitar requisição implícita do NDK.
+2. **Execução de Comandos de Limpeza e Validação:** Executados `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test`.
+3. **Execução no Emulador:** Testada a execução do aplicativo no emulador `emulator-5554` via `flutter run -d emulator-5554`.
+4. **Preservação do Código:** Nenhuma outra alteração foi feita no código ou nas dependências do projeto.
+
+---
+
+## Actions Performed
+
+1. **Remoção da linha no Gradle:**
+   - Editado [android/app/build.gradle.kts](file:///C:/Users/catar/todo-list-dart/android/app/build.gradle.kts) removendo `ndkVersion = flutter.ndkVersion`.
+2. **`flutter clean`:**
+   - Executado para limpar arquivos temporários e caches de build.
+3. **`flutter pub get`:**
+   - Executado para restaurar dependências.
+4. **`flutter analyze`:**
+   - Executado para análise estática de código.
+5. **`flutter test`:**
+   - Executado para rodar a suíte completa de testes automatizados.
+6. **`flutter run -d emulator-5554`:**
+   - Executado para iniciar o aplicativo no emulador Android `emulator-5554`.
+
+---
+
+## Result
+
+- A linha `ndkVersion` foi removida com sucesso.
+- `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test` executados com 100% de sucesso (81 testes aprovados, 0 erros no analyze).
+- O aplicativo **conseguiu abrir e rodar com sucesso** no `emulator-5554`.
+
+---
+
+## Problems / Errors
+
+- Nenhum erro encontrado. O build completou com sucesso sem exigir a instalação do NDK após a remoção da linha.
+
+---
+
+## Fixes Attempted
+
+- Remoção de `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
 
 ---
 
@@ -1158,6 +1782,84 @@ Completed
 
 ---
 
+## Entry 012 — Remoção do NdkVersion e Validação de Build/Execução
+
+### Data / Hora
+2026-09-25
+
+---
+
+## Prompt / Request
+
+> "Pode aplicar a correção mínima proposta.
+> Remova somente a linha `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+> Depois:
+> 1. Execute `flutter clean`.
+> 2. Execute `flutter pub get`.
+> 3. Execute `flutter analyze`.
+> 4. Execute `flutter test`.
+> 5. Tente executar o aplicativo no emulador com `flutter run -d emulator-5554`.
+> 6. Não faça outras alterações no projeto.
+> 7. Registre essa alteração no `BUILD_LOG.md`.
+> 
+> Se o build continuar exigindo o NDK depois da remoção da linha, pare e me informe o erro em vez de instalar ou alterar outras dependências automaticamente.
+> 
+> No final, informe exatamente se o aplicativo conseguiu abrir no `emulator-5554`."
+
+---
+
+## Decision Summary
+
+1. **Remoção de `ndkVersion`:** Removida a linha `ndkVersion = flutter.ndkVersion` do arquivo `android/app/build.gradle.kts` para evitar requisição implícita do NDK.
+2. **Execução de Comandos de Limpeza e Validação:** Executados `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test`.
+3. **Execução no Emulador:** Testada a execução do aplicativo no emulador `emulator-5554` via `flutter run -d emulator-5554`.
+4. **Preservação do Código:** Nenhuma outra alteração foi feita no código ou nas dependências do projeto.
+
+---
+
+## Actions Performed
+
+1. **Remoção da linha no Gradle:**
+   - Editado [android/app/build.gradle.kts](file:///C:/Users/catar/todo-list-dart/android/app/build.gradle.kts) removendo `ndkVersion = flutter.ndkVersion`.
+2. **`flutter clean`:**
+   - Executado para limpar arquivos temporários e caches de build.
+3. **`flutter pub get`:**
+   - Executado para restaurar dependências.
+4. **`flutter analyze`:**
+   - Executado para análise estática de código.
+5. **`flutter test`:**
+   - Executado para rodar a suíte completa de testes automatizados.
+6. **`flutter run -d emulator-5554`:**
+   - Executado para iniciar o aplicativo no emulador Android `emulator-5554`.
+
+---
+
+## Result
+
+- A linha `ndkVersion` foi removida com sucesso.
+- `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test` executados com 100% de sucesso (81 testes aprovados, 0 erros no analyze).
+- O aplicativo **conseguiu abrir e rodar com sucesso** no `emulator-5554`.
+
+---
+
+## Problems / Errors
+
+- Nenhum erro encontrado. O build completou com sucesso sem exigir a instalação do NDK após a remoção da linha.
+
+---
+
+## Fixes Attempted
+
+- Remoção de `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+
+---
+
+## Current Status
+
+Completed
+
+---
+
 ## Entry 010 — Finalização, Documentação e Validação
 
 ### Data / Hora
@@ -1252,6 +1954,84 @@ Completed
 
 ---
 
+## Entry 012 — Remoção do NdkVersion e Validação de Build/Execução
+
+### Data / Hora
+2026-09-25
+
+---
+
+## Prompt / Request
+
+> "Pode aplicar a correção mínima proposta.
+> Remova somente a linha `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+> Depois:
+> 1. Execute `flutter clean`.
+> 2. Execute `flutter pub get`.
+> 3. Execute `flutter analyze`.
+> 4. Execute `flutter test`.
+> 5. Tente executar o aplicativo no emulador com `flutter run -d emulator-5554`.
+> 6. Não faça outras alterações no projeto.
+> 7. Registre essa alteração no `BUILD_LOG.md`.
+> 
+> Se o build continuar exigindo o NDK depois da remoção da linha, pare e me informe o erro em vez de instalar ou alterar outras dependências automaticamente.
+> 
+> No final, informe exatamente se o aplicativo conseguiu abrir no `emulator-5554`."
+
+---
+
+## Decision Summary
+
+1. **Remoção de `ndkVersion`:** Removida a linha `ndkVersion = flutter.ndkVersion` do arquivo `android/app/build.gradle.kts` para evitar requisição implícita do NDK.
+2. **Execução de Comandos de Limpeza e Validação:** Executados `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test`.
+3. **Execução no Emulador:** Testada a execução do aplicativo no emulador `emulator-5554` via `flutter run -d emulator-5554`.
+4. **Preservação do Código:** Nenhuma outra alteração foi feita no código ou nas dependências do projeto.
+
+---
+
+## Actions Performed
+
+1. **Remoção da linha no Gradle:**
+   - Editado [android/app/build.gradle.kts](file:///C:/Users/catar/todo-list-dart/android/app/build.gradle.kts) removendo `ndkVersion = flutter.ndkVersion`.
+2. **`flutter clean`:**
+   - Executado para limpar arquivos temporários e caches de build.
+3. **`flutter pub get`:**
+   - Executado para restaurar dependências.
+4. **`flutter analyze`:**
+   - Executado para análise estática de código.
+5. **`flutter test`:**
+   - Executado para rodar a suíte completa de testes automatizados.
+6. **`flutter run -d emulator-5554`:**
+   - Executado para iniciar o aplicativo no emulador Android `emulator-5554`.
+
+---
+
+## Result
+
+- A linha `ndkVersion` foi removida com sucesso.
+- `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test` executados com 100% de sucesso (81 testes aprovados, 0 erros no analyze).
+- O aplicativo **conseguiu abrir e rodar com sucesso** no `emulator-5554`.
+
+---
+
+## Problems / Errors
+
+- Nenhum erro encontrado. O build completou com sucesso sem exigir a instalação do NDK após a remoção da linha.
+
+---
+
+## Fixes Attempted
+
+- Remoção de `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+
+---
+
+## Current Status
+
+Completed
+
+---
+
 ## Entry 011 — Resolução de Conflito de Dependência (`timezone`)
 
 ### Data / Hora
@@ -1308,6 +2088,84 @@ Completed
 ## Fixes Attempted
 
 - Atualização de `timezone` em `pubspec.yaml` para `^0.11.1`.
+
+---
+
+## Current Status
+
+Completed
+
+---
+
+## Entry 012 — Remoção do NdkVersion e Validação de Build/Execução
+
+### Data / Hora
+2026-09-25
+
+---
+
+## Prompt / Request
+
+> "Pode aplicar a correção mínima proposta.
+> Remova somente a linha `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
+> Depois:
+> 1. Execute `flutter clean`.
+> 2. Execute `flutter pub get`.
+> 3. Execute `flutter analyze`.
+> 4. Execute `flutter test`.
+> 5. Tente executar o aplicativo no emulador com `flutter run -d emulator-5554`.
+> 6. Não faça outras alterações no projeto.
+> 7. Registre essa alteração no `BUILD_LOG.md`.
+> 
+> Se o build continuar exigindo o NDK depois da remoção da linha, pare e me informe o erro em vez de instalar ou alterar outras dependências automaticamente.
+> 
+> No final, informe exatamente se o aplicativo conseguiu abrir no `emulator-5554`."
+
+---
+
+## Decision Summary
+
+1. **Remoção de `ndkVersion`:** Removida a linha `ndkVersion = flutter.ndkVersion` do arquivo `android/app/build.gradle.kts` para evitar requisição implícita do NDK.
+2. **Execução de Comandos de Limpeza e Validação:** Executados `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test`.
+3. **Execução no Emulador:** Testada a execução do aplicativo no emulador `emulator-5554` via `flutter run -d emulator-5554`.
+4. **Preservação do Código:** Nenhuma outra alteração foi feita no código ou nas dependências do projeto.
+
+---
+
+## Actions Performed
+
+1. **Remoção da linha no Gradle:**
+   - Editado [android/app/build.gradle.kts](file:///C:/Users/catar/todo-list-dart/android/app/build.gradle.kts) removendo `ndkVersion = flutter.ndkVersion`.
+2. **`flutter clean`:**
+   - Executado para limpar arquivos temporários e caches de build.
+3. **`flutter pub get`:**
+   - Executado para restaurar dependências.
+4. **`flutter analyze`:**
+   - Executado para análise estática de código.
+5. **`flutter test`:**
+   - Executado para rodar a suíte completa de testes automatizados.
+6. **`flutter run -d emulator-5554`:**
+   - Executado para iniciar o aplicativo no emulador Android `emulator-5554`.
+
+---
+
+## Result
+
+- A linha `ndkVersion` foi removida com sucesso.
+- `flutter clean`, `flutter pub get`, `flutter analyze` e `flutter test` executados com 100% de sucesso (81 testes aprovados, 0 erros no analyze).
+- O aplicativo **conseguiu abrir e rodar com sucesso** no `emulator-5554`.
+
+---
+
+## Problems / Errors
+
+- Nenhum erro encontrado. O build completou com sucesso sem exigir a instalação do NDK após a remoção da linha.
+
+---
+
+## Fixes Attempted
+
+- Remoção de `ndkVersion = flutter.ndkVersion` de `android/app/build.gradle.kts`.
 
 ---
 
